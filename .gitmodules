@@ -1,0 +1,3 @@
+[submodule "diskimage-builder"]
+	path = diskimage-builder
+	url = https://github.com/openstack/diskimage-builder
