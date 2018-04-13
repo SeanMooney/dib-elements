@@ -1,0 +1,3 @@
+#!/bin/bash
+msg=${DIB_MOTD_MESSAGE:-"this image was built on: $(date)"}
+echo "$msg" > /etc/motd

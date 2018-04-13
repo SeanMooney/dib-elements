@@ -33,8 +33,9 @@ git submodule update
 $sudo_cmd easy_install -U  pip
 pushd diskimage-builder
 $sudo_cmd pip install -U bindep -c https://raw.githubusercontent.com/openstack/requirements/master/upper-constraints.txt
-$sudo_cmd $installer_cmd $(bindep -b)
+$sudo_cmd $installer_cmd $(bindep -b) || true
 $sudo_cmd pip install -U  -c https://raw.githubusercontent.com/openstack/requirements/master/upper-constraints.txt -r requirements.txt
+$sudo_cmd pip install -e .
 popd
 
 set +x
