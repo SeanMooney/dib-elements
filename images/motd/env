@@ -1,1 +1,1 @@
-DIB_MOTD_MESSAGE="This is an example image that uses the custom MOTD element built on: $(date)"
+export DIB_MOTD_MESSAGE="This is an example image that uses the custom MOTD element built on: $(date)"

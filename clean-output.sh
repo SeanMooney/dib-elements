@@ -1,2 +1,2 @@
 #!/bin/bash
-rm -rf output/*
+sudo rm -rf output/*

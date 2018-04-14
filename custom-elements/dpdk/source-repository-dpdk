@@ -1,0 +1,2 @@
+dpdk git /opt/dpdk ${DIB_DPDK_REPO:-"http://dpdk.org/git/dpdk-stable"} ${DIB_DPDK_BRANCH:-"master"}
+

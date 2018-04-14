@@ -4,15 +4,16 @@ ELEMENTS_PATH="$wd/custom-elements:$wd/diskimage-builder/diskimage_builder/eleme
 #ELEMENTS_PATH="custom-elements:diskimage-builder/diskimage_builder/elements"
 
 output_type=${output_type:-"raw"}
-output_dir=${output_dir:-"output"}
-input_dir=${input_dir:-"images"}
-cache_dir=${cache_dir:-"cache"}
-tmp_dir=${input_dir:-"tmp"}
+output_dir=${output_dir:-"$wd/output"}
+input_dir=${input_dir:-"$wd/images"}
+cache_dir=${cache_dir:-"$wd/cache"}
+tmp_dir=${input_dir:-"$wd/tmp"}
+image_filter=${image_filter:-""}
 
-images=$(ls $input_dir)
+images=$(ls $input_dir | grep -E "$image_filter")
 dib_cmd="ELEMENTS_PATH='$ELEMENTS_PATH' disk-image-create -t $output_type --image-cache $cache_dir --checksum"
 
-echo "images found: $images"
+echo images | xargs echo "images found:"
 
 for img in $images; do
     input_elements_file="$input_dir/$img/elements"
