@@ -1,7 +1,7 @@
 #!/bin/bash
 wd=$(pwd)
 ELEMENTS_PATH="$wd/custom-elements:$wd/diskimage-builder/diskimage_builder/elements"
-#ELEMENTS_PATH="custom-elements:diskimage-builder/diskimage_builder/elements"
+
 
 output_type=${output_type:-"raw"}
 output_dir=${output_dir:-"$wd/output"}

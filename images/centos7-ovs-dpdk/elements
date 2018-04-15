@@ -1,0 +1,8 @@
+# specify one element per line
+# lintes starting with # will be skipped
+centos7
+ovs-dpdk
+motd
+devuser
+cloud-init-nocloud
+vm

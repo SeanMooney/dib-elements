@@ -1,0 +1,39 @@
+# dpdk settings
+DIB_DPDK_DIR=/opt/dpdk
+RTE_TARGET=${DIB_DPDK_RTE_TARGET:-x86_64-native-linuxapp-gcc}
+DIB_DPDK_MEM_SEGMENTS=${DIB_DPDK_MEM_SEGMENTS:-256}
+DIB_DPDK_RTE_LIBRTE_VHOST=${DIB_DPDK_RTE_LIBRTE_VHOST:-y}
+DIB_DPDK_VHOST_USER_DEBUG=${DIB_DPDK_VHOST_USER_DEBUG:-n}
+DIB_DPDK_BUILD_SHARED_LIB=${DIB_DPDK_BUILD_SHARED_LIB:-n}
+DIB_DPDK_BUILD_IGB_UIO=${DIB_DPDK_BUILD_IGB_UIO:-n}
+DIB_DPDK_PATCHES=${DIB_DPDK_PATCHES:-""}
+
+
+#patch dpdk
+
+# patch ovs
+if [ "$DIB_DPDK_PATCHES" != "" ]; then
+    local patches=( $DIB_DPDK_PATCHES )
+    pushd  ${DIB_DPDK_DIR}
+        for url in "${patches[@]}"; do
+            curl $url | patch -p1
+        done
+    popd
+fi
+
+# dpdk compile
+cd ${DIB_DPDK_DIR}
+make config T=${RTE_TARGET}
+ln -s -f build ${RTE_TARGET}
+
+sed "s/CONFIG_RTE_BUILD_COMBINE_LIBS=n/CONFIG_RTE_BUILD_COMBINE_LIBS=y/" -i ${DIB_DPDK_DIR}/build/.config
+sed "s/CONFIG_RTE_MAX_MEMSEG=.*$/CONFIG_RTE_MAX_MEMSEG=${DIB_DPDK_MEM_SEGMENTS}/" -i ${DIB_DPDK_DIR}/build/.config
+sed "s/CONFIG_RTE_LIBRTE_VHOST=.*$/CONFIG_RTE_LIBRTE_VHOST=${DIB_DPDK_RTE_LIBRTE_VHOST}/" -i ${DIB_DPDK_DIR}/build/.config
+sed "s/CONFIG_RTE_LIBRTE_VHOST_DEBUG=.*$/CONFIG_RTE_LIBRTE_VHOST_DEBUG=${DIB_DPDK_VHOST_USER_DEBUG}/" -i ${DIB_DPDK_DIR}/build/.config
+sed "s/CONFIG_RTE_LIBRTE_KNI=.*$/CONFIG_RTE_LIBRTE_KNI=n/" -i ${DIB_DPDK_DIR}/build/.config
+sed "s/CONFIG_RTE_KNI_KMOD=.*$/CONFIG_RTE_KNI_KMOD=n/" -i ${DIB_DPDK_DIR}/build/.config
+sed "s/CONFIG_RTE_EAL_IGB_UIO=.*$/CONFIG_RTE_EAL_IGB_UIO=${DIB_DPDK_BUILD_IGB_UIO}/" -i ${DIB_DPDK_DIR}/build/.config
+sed "s/CONFIG_RTE_BUILD_SHARED_LIB=.*$/CONFIG_RTE_BUILD_SHARED_LIB=${DIB_DPDK_BUILD_SHARED_LIB}/" -i ${DIB_DPDK_DIR}/build/.config
+
+make -j $(nproc) EXTRA_CFLAGS='-fPIC'
+make install
