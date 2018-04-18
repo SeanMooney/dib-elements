@@ -1,0 +1,5 @@
+# rsd settings
+add-apt-repository universe
+apt-get update
+apt-get install -o APT::Install-Recommends=0 -y default-jdk-headless
+#apt-get install -o APT::Install-Suggests=0 -o APT::Install-Recommends=0 -y gradle

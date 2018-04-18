@@ -1,0 +1,22 @@
+# rsd settings
+RSD_DIR=/opt/intelRSD
+PODM_DIR="${RSD_DIR}/PODM/SW"
+DIB_RSD_PROXY_HOST=${DIB_RSD_PROXY_HOST:-""}
+DIB_RSD_PROXY_PORT=${DIB_RSD_PROXY_PORT:-""}
+
+proxy_args=""
+if ["${DIB_RSD_PROXY_HOST}" != ""] &&  ["${DIB_RSD_PROXY_PORT}" != ""]; then
+    proxy_args="-DproxyHost=${DIB_RSD_PROXY_HOST} -DproxyPort=${DIB_RSD_PROXY_PORT}"
+fi
+
+# install gradle
+mkdir /opt/gradle
+unzip -d /opt/gradle /tmp/gradle
+export PATH=$PATH:"/opt/gradle/gradle-${DIB_GRADLE_RELEASE}/bin"
+
+# compile rsd
+cd ${PODM_DIR}
+gradle --parallel --configure-on-demand $proxy_args buildDeb
+cd pod-manager/build/distributions/
+dpkg -i pod-manager_0.99-1_all.deb
+sudo service postgresql stop

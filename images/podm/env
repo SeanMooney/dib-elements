@@ -1,0 +1,7 @@
+export DIB_DEV_USER_USERNAME=tester
+export DIB_DEV_USER_PASSWORD=tester
+export DIB_DEV_USER_PWDLESS_SUDO=yes
+export DIB_RELEASE=xenial
+export DIB_RSD_BRANCH=master
+export DIB_GRADLE_RELEASE=2.9
+export DIB_MOTD_MESSAGE="This is an Ubuntu ${DIB_RELEASE} image with intel rsd podm ${DIB_RSD_BRANCH} built on: $(date)"

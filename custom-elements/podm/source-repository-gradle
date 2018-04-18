@@ -1,0 +1,2 @@
+gradle file /tmp/gradle "${DIB_GRADLE_REPO:-https://services.gradle.org/distributions}/gradle-${DIB_GRADLE_RELEASE:-4.6}-bin.zip" .
+

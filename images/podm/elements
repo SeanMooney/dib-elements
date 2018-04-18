@@ -1,0 +1,9 @@
+# specify one element per line
+# lintes starting with # will be skipped
+ubuntu
+gradle-cache
+podm
+motd
+devuser
+cloud-init-nocloud
+vm
