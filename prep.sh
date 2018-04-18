@@ -18,7 +18,7 @@ packages="debootstrap curl wget python-setuptools"
 
 # add distro specifc packages here
 if [ 'deb' == "${package_type}" ]; then
-    packages="$packages qemu-utils"
+    packages="$packages qemu-utils kpartx"
 else
     packages="$packages qemu-img"
 fi
