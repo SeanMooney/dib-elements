@@ -1,0 +1,2 @@
+default-jdk:
+  phase: pre-install.d

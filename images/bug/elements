@@ -1,6 +1,6 @@
 # specify one element per line
 # lintes starting with # will be skipped
-centos7
+ubuntu
+bug
 cloud-init-nocloud
-motd
 vm
