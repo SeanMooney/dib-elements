@@ -1,0 +1,38 @@
+# psme settings
+RSD_DIR=/opt/intelRSD
+PSME_DIR="${RSD_DIR}/PSME"
+BUILD_DIR="${PSME_DIR}/build.debug"
+OUTPUT_DIR=/opt/psme
+
+# download deps
+cd "${PSME_DIR}/third_party"
+wget https://github.com/intel/intelRSD/files/1694385/safestring-0.0.1.zip
+./download.sh
+
+
+# build psme
+mkdir ${BUILD_DIR}
+cd ${BUILD_DIR}
+cmake -DCMAKE_BUILD_TYPE=Debug ..
+make psme-rest-server psme-compute-simulator -j16
+
+# generate build certs
+mkdir -p ${OUTPUT_DIR}/psme-rest-server/certs
+cp ${PSME_DIR}/application/configuration.json ${OUTPUT_DIR}/psme-rest-server/
+cp ${RSD_DIR}/PODM/SW/pod-manager/os-package/contents/var/lib/pod-manager/root.crt ${OUTPUT_DIR}/psme-rest-server/certs/ca.crt
+${RSD_DIR}/PSME/lui/OS/rootfs/usr/bin/psme-gen-serv-cert.sh --srv-cert=${OUTPUT_DIR}/psme-rest-server/certs/server.crt --srv-key=${OUTPUT_DIR}/psme-rest-server/certs/server.key
+
+# copy rest server
+cp bin/psme-rest-server ${OUTPUT_DIR}/psme-rest-server/
+
+
+# Save simulator
+mkdir ${OUTPUT_DIR}/psme-compute-simulator
+cp bin/psme-compute-simulator ${OUTPUT_DIR}/psme-compute-simulator/
+cp ${PSME_DIR}/agent-simulator/compute/deep_discovery.x* ${OUTPUT_DIR}/psme-compute-simulator/
+cp ${PSME_DIR}/agent-simulator/compute/configuration.json ${OUTPUT_DIR}/psme-compute-simulator/
+
+# RMM build
+make rmm-libs psme-rmm -j16
+
+${RSD_DIR}/PSME/lui/OS/rootfs/usr/bin/psme-gen-serv-cert.sh --srv-cert=${OUTPUT_DIR}/psme-rest-server/certs/rmm.crt --srv-key=${OUTPUT_DIR}/psme-rest-server/certs/rmm.key

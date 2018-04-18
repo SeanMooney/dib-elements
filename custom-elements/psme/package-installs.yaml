@@ -1,0 +1,32 @@
+build-essential: 
+  phase: pre-install.d
+libmicrohttpd-dev:
+  phase: pre-install.d
+g++:
+  phase: pre-install.d
+libxml++2.6-dev:
+  phase: pre-install.d
+libcurl4-openssl-dev:
+  phase: pre-install.d
+libgnutls28-dev:
+  phase: pre-install.d
+libusb-dev:
+  phase: pre-install.d
+libblkid-dev:
+  phase: pre-install.d
+libudev-dev:
+  phase: pre-install.d
+liblvm2-dev:
+  phase: pre-install.d
+libnl-route-3-dev:
+  phase: pre-install.d
+libnl-genl-3-dev:
+  phase: pre-install.d
+libusb-dev:
+  phase: pre-install.d
+cmake:
+  phase: pre-install.d
+wget:
+  phase: pre-install.d
+unzip:
+  phase: pre-install.d
