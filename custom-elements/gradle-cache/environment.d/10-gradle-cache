@@ -1,0 +1,1 @@
+export GRADLE_USER_HOME=/tmp/gradle-cache
