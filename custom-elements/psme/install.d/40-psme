@@ -14,7 +14,7 @@ wget https://github.com/intel/intelRSD/files/1694385/safestring-0.0.1.zip
 mkdir ${BUILD_DIR}
 cd ${BUILD_DIR}
 cmake -DCMAKE_BUILD_TYPE=Debug ..
-make psme-rest-server psme-compute-simulator -j16
+make psme-rest-server psme-compute-simulator -j$(nproc)
 
 # generate build certs
 mkdir -p ${OUTPUT_DIR}/psme-rest-server/certs
@@ -33,6 +33,6 @@ cp ${PSME_DIR}/agent-simulator/compute/deep_discovery.x* ${OUTPUT_DIR}/psme-comp
 cp ${PSME_DIR}/agent-simulator/compute/configuration.json ${OUTPUT_DIR}/psme-compute-simulator/
 
 # RMM build
-make rmm-libs psme-rmm -j16
+make rmm-libs psme-rmm -j$(nproc)
 
 ${RSD_DIR}/PSME/lui/OS/rootfs/usr/bin/psme-gen-serv-cert.sh --srv-cert=${OUTPUT_DIR}/psme-rest-server/certs/rmm.crt --srv-key=${OUTPUT_DIR}/psme-rest-server/certs/rmm.key
