@@ -1,6 +1,8 @@
-==========
-locale-bug
-==========
+============
+dib-elements
+============
+
+A collection of diskimage builder (dib) elements and image. 
 
 Prepare Dev Environment
 -----------------------
