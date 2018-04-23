@@ -1,6 +1,0 @@
-export DIB_DPDK_BRANCH="17.11"
-export DIB_OVS_BRANCH="branch-2.9"
-export DIB_MOTD_MESSAGE="This is an Centos7 image with ovs ${DIB_OVS_BRANCH} and DPDK $DIB_DPDK_BRANCH built on: $(date)"
-export DIB_DEV_USER_USERNAME=tester
-export DIB_DEV_USER_PASSWORD=tester
-export DIB_DEV_USER_PWDLESS_SUDO=yes

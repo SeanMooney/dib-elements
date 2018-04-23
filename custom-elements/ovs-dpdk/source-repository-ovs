@@ -1,1 +1,0 @@
-ovs git /opt/ovs ${DIB_OVS_REPO:-"https://github.com/openvswitch/ovs"} ${DIB_OVS_BRANCH:-"master"}
