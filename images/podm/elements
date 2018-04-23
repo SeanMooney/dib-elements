@@ -1,6 +1,7 @@
 # specify one element per line
 # lintes starting with # will be skipped
 ubuntu
+pip-and-virtualenv
 gradle-cache
 podm
 motd
